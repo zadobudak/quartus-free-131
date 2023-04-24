@@ -1,2 +1,4 @@
 Quartus*.tar
 *.pkg.*
+src/
+pkg/
