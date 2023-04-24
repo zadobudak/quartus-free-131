@@ -9,16 +9,16 @@
 #       is around 15GB now.
 #
 _basename=quartus-free
-pkgname="${_basename}-130"
-pkgver=13.0.1.232
+pkgname="${_basename}-131"
+pkgver=13.1.0.162
 pkgrel=4
-pkgdesc="Quartus II 13.0 Web Edition, the last version to support Cyclone II and earlier FPGAs."
+pkgdesc="Quartus II 13.1 Web Edition, the last version to support Cyclone II and earlier FPGAs."
 arch=('x86_64')
 url="http://www.altera.com/products/software/quartus-ii/web-edition"
 license=('custom')
 provides=("${_basename}=${pkgver}")
 
-_alteradir="/opt/altera/13.0sp1"
+_alteradir="/opt/altera/13.1"
 
 # According to the installer script, these dependencies are needed for the installer
 depends=('lib32-glibc' 'lib32-libxext' 'lib32-libx11' 'lib32-libsm'
@@ -31,10 +31,10 @@ optdepends=('lib32-gtk: For eclipse-nios2 support'
 
 makedepends=('lib32-fakeroot')
 
-source=('http://download.altera.com/akdlm/software/acdsinst/13.0sp1/232/ib_tar/Quartus-web-13.0.1.232-linux.tar'
+source=('http://download.altera.com/akdlm/software/acdsinst/13.1/162/ib_tar/Quartus-web-13.1.0.162-linux.tar'
         'quartus.sh' 'quartus.desktop' 'modelsim-ase.desktop' '51-usbblaster.rules')
 
-sha256sums=('dac4d03ffb69c4657962343fdeaf5c20ca715ecbf06ee1bc7e00fe30fcbceb4c'
+sha256sums=('53c2bc3adb0bdacca4f58d250ebda7332ecf240d7eba115c3561a56315429ba6'
             '2a3d61e6f01aa16c9d3ddd40e9741b9fd080496db5437530b4e38faf6771c1ed'
             'd55d0df6fa87cab543979f2066ffe55d35167655cc134e07194f9694dbf738d7'
             '6ec0dcc53946590a3f9e12c239d968c3ae65fea5771a776a969c755d4880cdca'
@@ -44,7 +44,7 @@ options=(!strip !debug) # Stripping will takes ages, I'd avoid it
 PKGEXT=".pkg.tar.zst" # Zstd is fast enough
 
 package() {
-    # Install version 13.0.1.232
+    # Install version 13.1.0.162
     DISPLAY="" bash ./setup.sh --mode unattended --unattendedmodeui none --installdir "${pkgdir}${_alteradir}"
     
     # Remove uninstaller and install logs since we have a working package management
@@ -83,10 +83,10 @@ package() {
     install -D -m644 "${pkgdir}${_alteradir}/quartus/license.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
     
     # Install integration files
-    install -D -m755 quartus.sh "${pkgdir}/etc/profile.d/quartus.zz-13.0.sh" # Hack to sort after quartus.sh
-    install -D -m644 51-usbblaster.rules "${pkgdir}/etc/udev/rules.d/51-usbblaster-13.0.rules"
-    install -D -m644 quartus.desktop "${pkgdir}/usr/share/applications/quartus-13.0.desktop"
-    install -D -m644 modelsim-ase.desktop "${pkgdir}/usr/share/applications/modelsim-ase-13.0.desktop"
+    install -D -m755 quartus.sh "${pkgdir}/etc/profile.d/quartus.zz-13.1.sh" # Hack to sort after quartus.sh
+    install -D -m644 51-usbblaster.rules "${pkgdir}/etc/udev/rules.d/51-usbblaster-13.1.rules"
+    install -D -m644 quartus.desktop "${pkgdir}/usr/share/applications/quartus-13.1.desktop"
+    install -D -m644 modelsim-ase.desktop "${pkgdir}/usr/share/applications/modelsim-ase-13.1.desktop"
 
     # Convenience symlinks
     ln -s "${_alteradir}/quartus/bin/quartus" "${pkgdir}${_alteradir}/quartus/bin/quartus13"
